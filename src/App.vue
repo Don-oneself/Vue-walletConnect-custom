@@ -1,6 +1,7 @@
 <template>
   <div style="height: 100vh">
     <div @click="openQrCode">QrCode</div>
+    <div @click="postMessage">In-app</div>
     <div @click="sendTransaction">Send Transaction</div>
     <div @click="clear">Clear LocalStorage</div>
   </div>
@@ -123,6 +124,11 @@ export default {
     clear() {
       window.localStorage.removeItem('walletconnect')
       window.location.reload(true)
+    },
+
+    postMessage() {
+      // currency -- all bnb trx
+      !!window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify({type: "TICKTOCK_wallet_connect", wc: 'wc:**@1?bridge=**&key=**', currency: 'all'}))
     }
   }
 }
