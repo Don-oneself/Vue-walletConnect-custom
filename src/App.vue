@@ -65,6 +65,36 @@ export default {
       console.log(payload)
     });
 
+    this.connector.on("session_request", (error, payload) => {
+      if (error) {
+        throw error;
+      }
+
+      // Get updated accounts and chainId
+      console.log('session_request')
+      console.log(payload)
+    });
+
+    this.connector.on("wc_sessionRequest", (error, payload) => {
+      if (error) {
+        throw error;
+      }
+
+      // Get updated accounts and chainId
+      console.log('wc_sessionRequest')
+      console.log(payload)
+    });
+
+    this.connector.on("wc_sessionUpdate", (error, payload) => {
+      if (error) {
+        throw error;
+      }
+
+      // Get updated accounts and chainId
+      console.log('wc_sessionUpdate')
+      console.log(payload)
+    });
+
     this.connector.on("call_request", (error, payload) => {
       if (error) {
         throw error;
@@ -128,7 +158,12 @@ export default {
 
     postMessage() {
       // currency -- all bnb trx
-      !!window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify({type: "TICKTOCK_wallet_connect", wc: 'wc:**@1?bridge=**&key=**', currency: 'all'}))
+      // Violent acquisition 'wc'
+      // ../node_modules/@walletconnect/qrcode-modal/dist/cjs/index.js
+      // line 642 add
+      // window.wc_uri = uri
+      // If you don't want to open the pop-up window, delete the if method below
+      !!window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify({type: "TICKTOCK_wallet_connect", wc: window.wc_uri, currency: 'all'}))
     }
   }
 }
